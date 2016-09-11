@@ -6,4 +6,10 @@ public class CompositeEntry extends Entry {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	byte[] readClass(String classname) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

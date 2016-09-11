@@ -1,9 +1,7 @@
 package classpath;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class DirEntry extends Entry {
 	

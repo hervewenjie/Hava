@@ -3,11 +3,9 @@ package classpath;
 import java.io.File;
 
 public abstract class Entry {
-	byte[] readClass(String classname){
-		return null;
-	}
+	abstract byte[] readClass(String classname);
 	
-	Entry newEntry(String path){
+	static Entry newEntry(String path){
 		if(path.contains(File.separator)){
 			return new CompositeEntry(path);
 		}
@@ -16,7 +14,7 @@ public abstract class Entry {
 		}
 		else if(path.endsWith(".jar") || path.endsWith(".JAR")
 				|| path.endsWith(".zip") || path.endsWith(".ZIP")){
-			return new ZipEntry(path);
+			return new ZipEntry_(path);
 		}
 		return new DirEntry(path);
 	}

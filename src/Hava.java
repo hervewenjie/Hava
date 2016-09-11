@@ -1,3 +1,6 @@
+import java.io.File;
+
+import classpath.ClassPath;
 
 public class Hava {
 	public static void main(String[] args){
@@ -13,8 +16,15 @@ public class Hava {
 	}
 	
 	public static void startJvm(Cmd cmd){
-		System.out.printf("classpath:%s class:%s xjre:%s",
-				cmd.cpOption, cmd._class, cmd.XjreOption);
+		System.out.println("Starting Jvm");
+		ClassPath classPath=ClassPath.parse(cmd.XjreOption,cmd.cpOption);
+		String className=cmd._class.replace('.', File.separatorChar);
+		byte[] b=classPath.readClass(className);
+		System.out.println(b.length);
+		for(int i=0;i<b.length;i++){
+			System.out.printf("%x ",b[i]);
+			System.out.println();
+		}
 	}
 	
 }
