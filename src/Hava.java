@@ -24,7 +24,6 @@ public class Hava {
 		for(int i=0;i<b.length;i++){
 			System.out.printf("%x ",b[i]);
 		}
-		System.out.println("");
 	}
 	
 }
