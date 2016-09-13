@@ -36,6 +36,23 @@ public class ClassReader {
         } catch (Exception e) {}
         return b;
     }
+    
+    public static long read64(InputStream in){
+        long b=0;
+        try {
+            int b1=in.read();
+            int b2=in.read();
+            int b3=in.read();
+            int b4=in.read();
+            int b5=in.read();
+            int b6=in.read();
+            int b7=in.read();
+            int b8=in.read();
+            b = (b1<<56) + (b2<<48) + (b3<<40) + (b4<<32) + (b5<<24)
+            		+ (b6<<16) + (b7<<8) + (b8<<40);
+        } catch (Exception e) {}
+        return b;
+    }
 
     public static String readString(InputStream in, int len){
         StringBuilder builder=new StringBuilder();
@@ -47,6 +64,16 @@ public class ClassReader {
             }
         } catch (Exception e) {}
         return builder.toString();
+    }
+    
+    public static byte[] readBytes(InputStream in,int n){
+    	byte[] bytes=new byte[n];
+    	try {
+    		for(int i=0;i<n;i++){
+        		bytes[i]=(byte)in.read();
+        	}
+		} catch (Exception e) {}
+    	return bytes;
     }
 
     // high<<8 + low to signed short as jump address

@@ -25,11 +25,11 @@ public class ConstantInfo {
     public static final int CONSTANT_MethodType         = 16;
     public static final int CONSTANT_InvokeDynamic      = 18;
     
-	public static ConstantInfo readConstantInfo(InputStream in,ConstantInfo cp){
+	public static ConstantInfo readConstantInfo(InputStream in,ConstantPool cp){
 		int tag=ClassReader.read8(in);
 		switch (tag) {
 		case CONSTANT_Class:
-			break;
+			return new ConstantClassInfo(cp);
 		case CONSTANT_Fieldref:
 			break;
 		case CONSTANT_Methodref:
@@ -37,19 +37,19 @@ public class ConstantInfo {
 		case CONSTANT_InterfaceMethodref:
 			break;
 		case CONSTANT_String:
-			break;
+			return new ConstantStringInfo(cp);
 		case CONSTANT_Integer:
-			break;
+			return new ConstantIntegerInfo();
 		case CONSTANT_Float:
-			break;
+			return new ConstantFloatInfo();
 		case CONSTANT_Long:
-			break;
+			return new ConstantLongInfo();
 		case CONSTANT_Double:
-			break;
+			return new ConstantDoubleInfo();
 		case CONSTANT_NameAndType:
 			break;
 		case CONSTANT_Utf8:
-			break;
+			return new ConstantUtf8Info();
 		case CONSTANT_MethodHandle:
 			break;
 		case CONSTANT_MethodType:
@@ -63,5 +63,5 @@ public class ConstantInfo {
 		return null;
 	}
 	
-	public void readInfo(){}
+	public void readInfo(InputStream in){}
 }
