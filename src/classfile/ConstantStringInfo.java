@@ -12,7 +12,7 @@ public class ConstantStringInfo extends ConstantInfo {
 	}
 	
 	@Override
-	public void readInfo(InputStream in) {
+	public void readInfo(InputStream in, ConstantPool cp) {
 		// TODO Auto-generated method stub
 		index=ClassReader.read16(in);
 	}
