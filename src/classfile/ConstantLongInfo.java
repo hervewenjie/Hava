@@ -9,4 +9,10 @@ public class ConstantLongInfo extends ConstantInfo {
 		// TODO Auto-generated method stub
 		val=ClassReader.read64(in);
 	}
+	
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return "Long "+val;
+	}
 }

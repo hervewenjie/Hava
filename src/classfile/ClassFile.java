@@ -1,5 +1,7 @@
 package classfile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 /*
@@ -58,7 +60,9 @@ public class ClassFile {
 		this_class=ClassReader.read16(in);
 		super_class=ClassReader.read16(in);
 		interfaces=ClassReader.read16s(in);
-		
+		fields=MemberInfo.readMembers(in, constantPool);
+		methods=MemberInfo.readMembers(in, constantPool);
+		// TODO attr
 	}
 	
 	void readAndCheckMagic(){
@@ -102,5 +106,20 @@ public class ClassFile {
 		System.exit(1);
 	}
 	
-	
+	public static void main(String[] args){
+		String path=System.getProperty("user.dir")+File.separator
+				+"src"+File.separator+"test"+File.separator+"ClassFileTest.class";
+		try {
+			FileInputStream in=new FileInputStream(new File(path));
+			
+//			int b;
+//			while( (b=in.read())!=-1){
+//				System.out.printf("%x ",b);
+//			}
+			ClassFile cf=new ClassFile(in);
+			cf.read();
+			in.close();
+		} catch (Exception e) {e.printStackTrace();}
+		
+	}
 }

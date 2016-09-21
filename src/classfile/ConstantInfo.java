@@ -47,7 +47,7 @@ public class ConstantInfo {
 		case CONSTANT_Double:
 			return new ConstantDoubleInfo();
 		case CONSTANT_NameAndType:
-			break;
+			return new ConstantNameAndTypeInfo();
 		case CONSTANT_Utf8:
 			return new ConstantUtf8Info();
 		case CONSTANT_MethodHandle:

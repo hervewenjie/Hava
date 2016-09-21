@@ -20,4 +20,10 @@ public class ConstantClassInfo extends ConstantInfo {
 	public String getName(){
 		return cp.getUtf8(nameIndex);
 	}
+	
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return "Class #"+nameIndex;
+	}
 }

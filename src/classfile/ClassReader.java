@@ -22,7 +22,12 @@ public class ClassReader {
     }
     
     public static int[] read16s(InputStream in){
-        return null;
+        int n=read16(in);
+        int[] s=new int[n];
+        for(int i=0;i<n;i++){
+        		s[i]=read16(in);
+        }
+        return s;
     }
 
     public static int read32(InputStream in){
@@ -49,7 +54,7 @@ public class ClassReader {
             int b7=in.read();
             int b8=in.read();
             b = (b1<<56) + (b2<<48) + (b3<<40) + (b4<<32) + (b5<<24)
-            		+ (b6<<16) + (b7<<8) + (b8<<40);
+            		+ (b6<<16) + (b7<<8) + b8;
         } catch (Exception e) {}
         return b;
     }

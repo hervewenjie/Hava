@@ -9,6 +9,12 @@ public class ConstantIntegerInfo extends ConstantInfo {
 	@Override
 	public void readInfo(InputStream in, ConstantPool cp) {
 		// TODO Auto-generated method stub
-		val=ClassReader.read16(in);
+		val=ClassReader.read32(in);
+	}
+	
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return "Integer "+val;
 	}
 }

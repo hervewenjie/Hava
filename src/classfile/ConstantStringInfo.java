@@ -19,4 +19,10 @@ public class ConstantStringInfo extends ConstantInfo {
 	public String getString(){
 		return cp.getUtf8(index);
 	}
+	
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return "String #"+index;
+	}
 }

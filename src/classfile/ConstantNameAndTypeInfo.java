@@ -13,4 +13,10 @@ public class ConstantNameAndTypeInfo extends ConstantInfo {
 		nameIndex=ClassReader.read16(in);
 		descriptorIndex=ClassReader.read16(in);
 	}
+	
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return "NameAndType #"+nameIndex+":#"+descriptorIndex;
+	}
 }

@@ -14,11 +14,14 @@ public class ConstantPool {
 		for(int i=1;i<cpcount;i++){
 			constantPool.infos[i]=ConstantInfo.newConstantInfo(in, constantPool);
 			constantPool.infos[i].readInfo(in, constantPool);
-			System.out.println(constantPool.infos[i].description());
+			System.out.println("#"+i+" = "+constantPool.infos[i].description());
 			// Double, Long take two slots
-			i++;
+			if(constantPool.infos[i] instanceof ConstantLongInfo ||
+					constantPool.infos[i] instanceof ConstantDoubleInfo){
+				i++;
+			}
 		}
-		return null;
+		return constantPool;
 	}
 	
 	public String getUtf8(int index){
@@ -35,6 +38,26 @@ public class ConstantPool {
 		return getUtf8(nameAndTypeInfo.nameIndex);
 	}
 	
+	public int getInteger(int index){
+		ConstantIntegerInfo integerInfo=(ConstantIntegerInfo)infos[index];
+		return integerInfo.val;
+	}
+	
+	public long getLong(int index){
+		ConstantLongInfo longInfo=(ConstantLongInfo)infos[index];
+		return longInfo.val;
+	}
+	
+	public float getFloat(int index){
+		ConstantFloatInfo floatInfo=(ConstantFloatInfo)infos[index];
+		return floatInfo.val;
+	}
+	
+	public double getDouble(int index){
+		ConstantDoubleInfo doubleInfo=(ConstantDoubleInfo)infos[index];
+		return doubleInfo.val;
+	}
+	
 	public static void main(String[] args){
 		String path=System.getProperty("user.dir")+File.separator
 				+"src"+File.separator+"test"+File.separator+"ClassFileTest.class";
@@ -45,7 +68,9 @@ public class ConstantPool {
 //			while( (b=in.read())!=-1){
 //				System.out.printf("%x ",b);
 //			}
-			ConstantPool.readConstantPool(in);
+			ConstantPool cp=ConstantPool.readConstantPool(in);
+			MemberInfo.readMembers(in, cp);
+			MemberInfo.readMembers(in, cp);
 			in.close();
 		} catch (Exception e) {e.printStackTrace();}
 		
