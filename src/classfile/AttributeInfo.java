@@ -31,6 +31,7 @@ public class AttributeInfo {
 	}
 	
 	static AttributeInfo newAttributeInfo(String attrName,int attrLen,ConstantPool cp){
+		System.out.println(attrName);
 		switch (attrName) {
 		case "Code":
 			return new CodeAttribute(cp);
@@ -48,6 +49,8 @@ public class AttributeInfo {
 			return new SourceFileAttribute();
 		case "Synthetic":
 			return new SyntheticAttribute();
+		case "StackMapTable":
+			return new StackMapTableAttribute();
 		default:
 			break;
 		}

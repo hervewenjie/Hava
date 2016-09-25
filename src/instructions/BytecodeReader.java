@@ -1,13 +1,17 @@
 package instructions;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+
 public class BytecodeReader {
-	byte[] code;
-	int pc;
+	public byte[] code;
+	public int pc;
 	
 	public int readInt8(){return readUint8();}
 	
 	public int readUint8(){
-		int i=code[pc];
+		int i=code[pc]&0xFF;
 		pc++;
 		return i;
 	}
@@ -15,9 +19,19 @@ public class BytecodeReader {
 	public int readInt16(){return readUint16();}
 	
 	public int readUint16(){
-		int b1=readInt8();
-		int b2=readInt8();
-		return (b1<<8) | b2;
+		byte b1=code[pc++];
+		byte b2=code[pc++];
+		byte[] bs={b1,b2};
+		DataInputStream in=new DataInputStream(new ByteArrayInputStream(bs));
+		int ret=0;
+		try {
+			ret = in.readShort();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Read 16 failed");
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 	public int readInt32(){
@@ -40,5 +54,10 @@ public class BytecodeReader {
 		while(pc%4!=0){
 			readInt8();
 		}
+	}
+	
+	public void reset(byte[] code,int pc){
+		this.code=code;
+		this.pc=pc;
 	}
 }

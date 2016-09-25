@@ -37,8 +37,8 @@ public class ClassFile {
 	int super_class;
 	int interfaces_count;
 	int[] interfaces;
-	MemberInfo[] fields;
-	MemberInfo[] methods;
+	public MemberInfo[] fields;
+	public MemberInfo[] methods;
 	AttributeInfo[] attributes;
 	
 	public ClassFile(InputStream in) {
@@ -46,7 +46,7 @@ public class ClassFile {
 		this.in=in;
 	}
 	
-	ClassFile parse(InputStream in){
+	public static ClassFile parse(InputStream in){
 		ClassFile classFile=new ClassFile(in);
 		classFile.read();
 		return classFile;

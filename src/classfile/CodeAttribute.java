@@ -23,11 +23,11 @@ Code_attribute {
 public class CodeAttribute extends AttributeInfo {
 	
     ConstantPool cp;
-	int maxStack;
-	int maxLocals;  
-	byte[] code;
-	ExceptionTableEntry[] exceptionTable;
-	AttributeInfo[] attributes;
+	public int maxStack;
+	public int maxLocals;  
+	public byte[] code;
+	public ExceptionTableEntry[] exceptionTable;
+	public AttributeInfo[] attributes;
 	
 	public CodeAttribute(ConstantPool cp) {
 		// TODO Auto-generated constructor stub

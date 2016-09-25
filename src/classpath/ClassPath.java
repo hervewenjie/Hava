@@ -9,6 +9,7 @@ public class ClassPath {
 	Entry userClasspath;
 	
 	public static ClassPath parse(String jreOption, String cpOption){
+		
 		ClassPath classPath=new ClassPath();
 		classPath.parseBootAndExtClasspath(jreOption);
 		classPath.parseUserClassPath(cpOption);
@@ -17,24 +18,29 @@ public class ClassPath {
 	
 	void parseBootAndExtClasspath(String jreOption){
 		String jreDir=getJreDir(jreOption);
-		// jre/lib/*
-		String jreLibPath = jreDir+File.separator+"lib"+File.separator+"*";
-		this.bootClasspath = new WildCardEntry(jreLibPath);
+		try {
+			// jre/lib/*
+			String jreLibPath = jreDir+File.separator+"lib"+File.separator+"*";
+			this.bootClasspath = new WildCardEntry(jreLibPath);
 
-		// jre/lib/ext/*
-		String jreExtPath = jreDir+File.separator+"lib"+File.separator+"ext"+File.separator+"*";
-		this.extClasspath = new WildCardEntry(jreExtPath);
+			// jre/lib/ext/*
+			String jreExtPath = jreDir+File.separator+"lib"+File.separator+"ext"+File.separator+"*";
+			this.extClasspath = new WildCardEntry(jreExtPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	String getJreDir(String jreOption){
 		if(jreOption!=null&&!jreOption.equals("")){
 			return jreOption;
 		}
-		// µ±Ç°Ä¿Â¼Ñ°ÕÒ./jre
+		// ï¿½ï¿½Ç°Ä¿Â¼Ñ°ï¿½ï¿½./jre
 		if(exits("jre")){
 			return System.getProperty("user.dir")+File.separator+"jre";
 		}
-		// ÏµÍ³»·¾³±äÁ¿Ñ°ÕÒjre
+		// ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½jre
 		Map<String, String> m = System.getenv();
 		if(m.get("JAVA_HOME")!=null){
 			return m.get("JAVA_HOME")+File.separator+"jre";

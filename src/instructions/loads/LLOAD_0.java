@@ -1,9 +1,9 @@
 package instructions.loads;
 
-import instructions.Index8Instruction;
+import instructions.NoOperandsInstruction;
 import rtdata.Frame;
 
-public class LLOAD_0 extends Index8Instruction {
+public class LLOAD_0 extends NoOperandsInstruction {
 	@Override
 	public void execute(Frame frame) {
 		// TODO Auto-generated method stub

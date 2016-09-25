@@ -1,15 +1,16 @@
 package rtdata;
 
-import java.io.PushbackInputStream;
-
 public class OperandStack {
-	int size;
-	Slot[] slots;
+	public int size;
+	public Slot[] slots;
 	
 	public OperandStack(int maxStack) {
 		// TODO Auto-generated constructor stub
 		size=0;
 		slots=new Slot[maxStack];
+		for(int i=0;i<maxStack;i++){
+			slots[i]=new Slot();
+		}
 	}
 	
 	public static OperandStack newOperandStack(int maxStack){

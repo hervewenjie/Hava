@@ -45,11 +45,11 @@ public class MemberInfo {
 		return memberInfo;
 	}
 	
-	String getName(){
+	public String getName(){
 		return cp.getUtf8(nameIndex);
 	}
 	
-	String getDescriptor(){
+	public String getDescriptor(){
 		return cp.getUtf8(descriptorIndex);
 	}
 	
@@ -62,5 +62,14 @@ public class MemberInfo {
 		}
 		str+="\n";
 		return str;
+	}
+	
+	public CodeAttribute getCodeAttribute(){
+		for(AttributeInfo attributeInfo:attributes){
+			if(attributeInfo instanceof CodeAttribute){
+				return (CodeAttribute)attributeInfo;
+			}
+		}
+		return null;
 	}
 }

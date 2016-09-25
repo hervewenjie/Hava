@@ -1,11 +1,14 @@
 package rtdata;
 
 public class LocalVars {
-	Slot[] vars;
+	public Slot[] vars;
 	
 	public LocalVars(int maxLocals) {
 		// TODO Auto-generated constructor stub
 		vars=new Slot[maxLocals];
+		for(int i=0;i<maxLocals;i++){
+			vars[i]=new Slot();
+		}
 	}
 	
 	static LocalVars newLocalVars(int maxLocals){
