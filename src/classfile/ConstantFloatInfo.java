@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ConstantFloatInfo extends ConstantInfo {
-	float val;
+	public float val;
 	
 	@Override
 	public void readInfo(InputStream in, ConstantPool cp) {

@@ -20,9 +20,9 @@ method_info {
 */
 public class MemberInfo {
 	ConstantPool cp;
-	int accessFlags;
-	int nameIndex;
-	int descriptorIndex;
+	public int accessFlags;
+	public int nameIndex;
+	public int descriptorIndex;
 	AttributeInfo[] attributes;
 	
 	static MemberInfo[] readMembers(InputStream in, ConstantPool cp){
@@ -72,4 +72,14 @@ public class MemberInfo {
 		}
 		return null;
 	}
+	
+	public ConstantValueAttribute getConstantValueAttribute(){
+		for(AttributeInfo attr:attributes){
+			if(attr instanceof ConstantValueAttribute){
+				return (ConstantValueAttribute) attr;
+			}
+		}
+		return null;
+	}
+	
 }

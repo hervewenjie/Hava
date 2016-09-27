@@ -35,4 +35,6 @@ public class ConstantValueAttribute extends AttributeInfo {
 		}
 		return str;
 	}
+	
+	public int getConstantValueIndex(){return constantValueIndex;}
 }

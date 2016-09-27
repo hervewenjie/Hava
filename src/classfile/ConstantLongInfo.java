@@ -3,7 +3,7 @@ package classfile;
 import java.io.InputStream;
 
 public class ConstantLongInfo extends ConstantInfo {
-	long val;
+	public long val;
 	@Override
 	public void readInfo(InputStream in, ConstantPool cp) {
 		// TODO Auto-generated method stub

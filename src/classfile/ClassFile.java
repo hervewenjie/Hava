@@ -31,8 +31,8 @@ public class ClassFile {
 	int minor_version;
 	int major_version;
 	int constant_pool_count;
-	ConstantPool constantPool;
-	int access_flags;
+	public ConstantPool constantPool;
+	public int access_flags;
 	int this_class;
 	int super_class;
 	int interfaces_count;
@@ -104,6 +104,25 @@ public class ClassFile {
 		}
 		System.err.println("Bad Version");
 		System.exit(1);
+	}
+	
+	public String getClassName(){
+		return constantPool.getClassName(this_class);
+	}
+	
+	public String getSuperClassName(){
+		if(super_class>0){
+			return constantPool.getClassName(super_class);
+		}
+		return "";
+	}
+	
+	public String[] getInterfaceNames(){
+		String[] names=new String[interfaces.length];
+		for(int i=0;i<names.length;i++){
+			names[i]=constantPool.getClassName(interfaces[i]);
+		}
+		return names;
 	}
 	
 	public static void main(String[] args){

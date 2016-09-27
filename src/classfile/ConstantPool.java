@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class ConstantPool {
-	ConstantInfo[] infos;
+	public ConstantInfo[] infos;
 	public static ConstantPool readConstantPool(InputStream in){
 		ConstantPool constantPool=new ConstantPool();
 		int cpcount=ClassReader.read16(in);
@@ -56,6 +56,10 @@ public class ConstantPool {
 	public double getDouble(int index){
 		ConstantDoubleInfo doubleInfo=(ConstantDoubleInfo)infos[index];
 		return doubleInfo.val;
+	}
+	
+	public int getPoolSize(){
+		return infos.length;
 	}
 	
 	public static void main(String[] args){

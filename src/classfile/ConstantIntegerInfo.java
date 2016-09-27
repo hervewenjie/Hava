@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 public class ConstantIntegerInfo extends ConstantInfo {
 	
-	int val;
+	public int val;
 	
 	@Override
 	public void readInfo(InputStream in, ConstantPool cp) {
