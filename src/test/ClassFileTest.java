@@ -2,6 +2,16 @@ package test;
 
 public class ClassFileTest {
 	
+	int a=0;
+	int b=1;
+	boolean c=false;
+	
+	public void test(int i){
+		i++;
+		i++;
+		String string="helloxxx";
+	}
+	
 	public static void main(String[] args){
 		int sum=0;
 		for(int i=1;i<=100;i++){

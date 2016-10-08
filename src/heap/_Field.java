@@ -13,6 +13,7 @@ public class _Field extends ClassMember {
 			fields[i]._class=_class;
 			fields[i].copyMemberInfo(infos[i]);
 			fields[i].copyAttributes(infos[i]);
+			
 		}
 		return fields;
 	}

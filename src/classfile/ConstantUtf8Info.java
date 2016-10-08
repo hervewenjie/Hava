@@ -10,7 +10,7 @@ CONSTANT_Utf8_info {
 }
 */
 public class ConstantUtf8Info extends ConstantInfo {
-	String val;
+	public String val;
 
 	@Override
 	public void readInfo(InputStream in, ConstantPool cp) {

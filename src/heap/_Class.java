@@ -27,6 +27,7 @@ public class _Class {
 		superClassName=cf.getSuperClassName();
 		interfaceNames=cf.getInterfaceNames();
 		constantPool=ConstantPool.newConstantPool(this, cf.constantPool);
+		
 		fields=_Field.newFields(this, cf.fields);
 		methods=_Method.newMethods(this, cf.methods);
 	}
@@ -72,4 +73,5 @@ public class _Class {
 	public _Object newObject(){
 		return new _Object(this);
 	}
+
 }

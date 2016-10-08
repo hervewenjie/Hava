@@ -19,8 +19,6 @@ public class StackMapTableAttribute extends AttributeInfo {
 	@Override
 	void readInfo(InputStream in) {
 		// TODO Auto-generated method stub
-		attribute_name_index=ClassReader.read16(in);
-		attribute_length=ClassReader.read32(in);
 		number_of_entries=ClassReader.read16(in);
 		entries=new StackMapFrame[number_of_entries];
 		for(int i=0;i<number_of_entries;i++){
@@ -44,11 +42,17 @@ class StackMapFrame {
 	
 	public static StackMapFrame newStackMapFrame(InputStream in){
 		int frame_type=ClassReader.read8(in);
+		System.out.println("frame_type="+frame_type);
 		if(frame_type>=248&&frame_type<=250){
 			// chop frame
 			return new ChopFrame(in, frame_type);
 		} else if (frame_type>=252&&frame_type<=254) {
 			return new AppendFrame(in, frame_type);
+		} else if(frame_type>=0&&frame_type<=63){
+			// same frame
+		} else if(frame_type>=64&&frame_type<=127){
+			// same frame
+			return new same_locals_1_stack_item_frame(in,frame_type);
 		}
 		
 		return null;
@@ -99,5 +103,20 @@ class VerificationTypeInfo {
 		}else if (tag>=7&&tag<=8) {
 			ClassReader.read16(in);
 		}
+	}
+}
+
+//same_locals_1_stack_item_frame {
+//    u1 frame_type = SAME_LOCALS_1_STACK_ITEM; /* 64-127 */
+//    verification_type_info stack[1];
+//}
+class same_locals_1_stack_item_frame extends StackMapFrame {
+	int frame_type;
+	VerificationTypeInfo[] stack;
+	
+	public same_locals_1_stack_item_frame(InputStream in,int frame_type) {
+		// TODO Auto-generated constructor stub
+		stack=new VerificationTypeInfo[1];
+		stack[0]=new VerificationTypeInfo(in);
 	}
 }

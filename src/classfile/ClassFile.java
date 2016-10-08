@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import heap._Class;
+
 /*
 ClassFile {
     u4             magic;
@@ -138,6 +140,11 @@ public class ClassFile {
 			ClassFile cf=new ClassFile(in);
 			cf.read();
 			in.close();
+			
+			// Test _Class in package heap
+			System.out.println("===================");
+			_Class _c=new _Class(cf);
+			
 		} catch (Exception e) {e.printStackTrace();}
 		
 	}

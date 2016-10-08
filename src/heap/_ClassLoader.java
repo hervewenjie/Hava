@@ -2,6 +2,7 @@ package heap;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.jar.Attributes.Name;
 
@@ -31,10 +32,12 @@ public class _ClassLoader {
 		if(classMap.containsKey(name)){
 			return classMap.get(name);
 		}
+		System.out.println("loadClass "+name);
 		return loadNonArrayClass(name);
 	}
 	
 	public _Class loadNonArrayClass(String name){
+		System.out.println("loadNonArrayClass name="+name);
 		byte[] data=readClass(name);
 		_Class c=defineClass(data);
 		link(c);
@@ -75,13 +78,16 @@ public class _ClassLoader {
 	}
 	
 	private void resolveInterfaces(_Class _class){
-		int interfaceCount=_class.interfaces.length;
-		if(interfaceCount>0){
-			_class.interfaces=new _Class[interfaceCount];
-			for(int i=0;i<interfaceCount;i++){
-				_class.interfaces[i]=loadClass(_class.interfaceNames[i]);
+		if(_class.interfaces!=null){
+			int interfaceCount=_class.interfaces.length;
+			if(interfaceCount>0){
+				_class.interfaces=new _Class[interfaceCount];
+				for(int i=0;i<interfaceCount;i++){
+					_class.interfaces[i]=loadClass(_class.interfaceNames[i]);
+				}
 			}
 		}
+		
 	}
 	
 	private void link(_Class _class){
@@ -165,5 +171,25 @@ public class _ClassLoader {
 		}
 	}
 	
+	public void printLoadedClasses(){
+		System.out.println("printLoadedClasses:");
+		System.out.println("classMapsize="+classMap.size());
+		for(String key:classMap.keySet()){
+			System.out.println(key);
+		}
+	}
 	
+	public static void main(String[] args){
+		String jreOption="/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre";
+		String cpOption="/Users/Herve/eclipse/java-neon2/Eclipse.app/Contents/MacOS/Hava/src/test";
+		ClassPath cp=ClassPath.parse(jreOption, cpOption);
+		_ClassLoader loader=new _ClassLoader(cp);
+		loader.loadClass("ClassFileTest");
+		System.out.println("=================");
+		loader.loadClass("ToLoad_1");
+		System.out.println("=================");
+		loader.loadClass("ToLoad_2");
+		
+		loader.printLoadedClasses();
+	}
 }

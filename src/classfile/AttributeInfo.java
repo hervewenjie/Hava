@@ -16,7 +16,6 @@ public class AttributeInfo {
 		AttributeInfo[] attributes=new AttributeInfo[n];
 		for(int i=0;i<n;i++){
 			attributes[i]=readAttribute(in,cp);
-			attributes[i].description();
 		}
 		return attributes;
 	}
@@ -27,11 +26,12 @@ public class AttributeInfo {
 		int attrLen=ClassReader.read32(in);
 		AttributeInfo attrInfo=newAttributeInfo(attrName,attrLen,cp);
 		attrInfo.readInfo(in);
+		System.out.println("read info done");
 		return attrInfo;
 	}
 	
 	static AttributeInfo newAttributeInfo(String attrName,int attrLen,ConstantPool cp){
-		System.out.println(attrName);
+		System.out.println("attrName="+attrName);
 		switch (attrName) {
 		case "Code":
 			return new CodeAttribute(cp);
@@ -51,6 +51,8 @@ public class AttributeInfo {
 			return new SyntheticAttribute();
 		case "StackMapTable":
 			return new StackMapTableAttribute();
+		case "Signature":
+			return new SignatureAttribute(cp);
 		default:
 			break;
 		}

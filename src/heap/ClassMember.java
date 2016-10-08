@@ -12,6 +12,7 @@ public class ClassMember {
 		this.accessFlags=memberInfo.accessFlags;
 		this.name=memberInfo.getName();
 		this.descriptor=memberInfo.getDescriptor();
+		
 	}
 	
 	public boolean isPublic(){

@@ -41,6 +41,8 @@ public class MemberInfo {
 		memberInfo.accessFlags=ClassReader.read16(in);
 		memberInfo.nameIndex=ClassReader.read16(in);
 		memberInfo.descriptorIndex=ClassReader.read16(in);
+		System.out.println("Method name index="+memberInfo.nameIndex);
+		System.out.println("Method descriptorIndex index="+memberInfo.descriptorIndex);
 		memberInfo.attributes=AttributeInfo.readAttributes(in, cp);
 		return memberInfo;
 	}
