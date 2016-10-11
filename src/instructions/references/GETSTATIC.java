@@ -19,15 +19,15 @@ public class GETSTATIC extends Index16Instruction {
 		ConstantPool cp=currentClass.getConstantPool();
 		CP_FieldRef fieldRef=(CP_FieldRef)cp.getConstant(index);
 		_Field field=fieldRef.resolvedField();
-		
 		_Class _class=field.get_Class();
 		// TODO verify final and static
-		
 		String descriptor=field.getDescriptor();
+		
 		int slotId=field.getSlotId();
 		Slot[] slots=_class.getStaticVars();
 		OperandStack stack=frame.operandStack;
 	
+		descriptor=descriptor.substring(0, 1);
 		if(descriptor.equals("Z")||descriptor.equals("B")||descriptor.equals("C")||
 				descriptor.equals("S")||descriptor.equals("I")){
 			stack.pushInt(slots[slotId].getNum());

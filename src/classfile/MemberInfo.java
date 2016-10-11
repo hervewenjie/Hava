@@ -25,7 +25,7 @@ public class MemberInfo {
 	public int accessFlags;
 	public int nameIndex;
 	public int descriptorIndex;
-	AttributeInfo[] attributes;
+	public AttributeInfo[] attributes;
 	
 	static MemberInfo[] readMembers(InputStream in, ConstantPool cp){
 		int n=ClassReader.read16(in);

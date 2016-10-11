@@ -31,6 +31,7 @@ public class _Class {
 		interfaceNames=cf.getInterfaceNames();
 		constantPool=ConstantPool.newConstantPool(this, cf.constantPool);
 		fields=_Field.newFields(this, cf.fields);
+				
 		methods=_Method.newMethods(this, cf.methods);
 	}
 	

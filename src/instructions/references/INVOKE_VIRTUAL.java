@@ -22,13 +22,12 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
 		if(resolvedMethod.isStatic()){
 			System.err.println("java.lang.IncompatibleClassChangeError");
 		}
-		System.out.println("\nmethod="+resolvedMethod.getName());
-		System.out.println("getArgSlotCount="+resolvedMethod.getArgSlotCount());
 		
 		_Object ref=frame.operandStack.getRefFromTop(resolvedMethod.getArgSlotCount()-1);
 		if(ref==null){
 			// hack
 			if(methodRef.getName().equals("println")){
+				System.out.println("\nHack println!!!\n");
 				_println(frame.operandStack, methodRef.getDescriptor());
 				return;
 			}
@@ -43,6 +42,21 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
 	}
 	
 	private void _println(OperandStack stack,String descriptor){
-		System.out.println("hack _println");
+		System.out.println("++++++++++++++++++++++++++");
+		if(descriptor.equals("(Z)V")||descriptor.equals("(C)V")||
+				descriptor.equals("(I)V")||descriptor.equals("(B)V")||descriptor.equals("(S)V")){
+			System.out.println(stack.popInt());
+		}
+		if(descriptor.equals("(F)V")){
+			System.out.println(stack.popFloat());
+		}
+		if(descriptor.equals("(J)V")){
+			System.out.println(stack.popLong());
+		}
+		if(descriptor.equals("(D)V")){
+			System.out.println(stack.popDouble());
+		}
+		System.out.println("++++++++++++++++++++++++++");
+		stack.popRef();
 	}
 }

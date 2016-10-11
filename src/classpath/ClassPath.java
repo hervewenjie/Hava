@@ -62,7 +62,6 @@ public class ClassPath {
 	}
 	// boot->ext->user
 	public byte[] readClass(String className){
-		System.err.println("classpath readclass="+className);
 		className=className+".class";
 		
 		byte[] b=bootClasspath.readClass(className);

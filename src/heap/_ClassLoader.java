@@ -117,6 +117,7 @@ public class _ClassLoader {
 	}
 	
 	private void calcInstanceFieldSlotIds(_Class _class){
+		
 		int slotId=0;
 		if(_class.superClass!=null){
 			slotId=_class.superClass.instanceSlotCount;
@@ -145,14 +146,18 @@ public class _ClassLoader {
 	
 	private void allocAndInitStaticVars(_Class _class){
 		_class.staticVars=new Slot[_class.staticSlotCount];
+		for(int i=0;i<_class.staticSlotCount;i++){
+			_class.staticVars[i]=new Slot();
+		}
 		for(_Field field:_class.fields){
-			if(field.isStatic() && field.isFinal()){
+			if(field.isStatic()){
 				initStaticFinalVar(_class, field);
 			}
 		}
 	} 
 	
 	private void initStaticFinalVar(_Class _class,_Field field){
+		
 		Slot[] vars=_class.staticVars;
 		heap.ConstantPool cp=_class.constantPool;
 		int cpIndex=field.constValueIndex;
@@ -160,6 +165,8 @@ public class _ClassLoader {
 		
 		if(cpIndex>0){
 			String desc=field.getDescriptor();
+			desc=desc.substring(0, 1);
+			System.out.println("descriptor="+desc);
 			if(desc.equals("Z")||desc.equals("B")||desc.equals("C")||desc.equals("S")||
 					desc.equals("I")){
 				vars[slotId].setNum((int)cp.getConstant(cpIndex));
@@ -200,7 +207,7 @@ public class _ClassLoader {
 //		loader.loadClass("ToLoad_1");
 //		System.out.println("=================");
 //		loader.loadClass("ToLoad_2");
-		loader.loadClass("PrintStream");
+		loader.loadClass("System");
 		loader.printLoadedClasses();
 	}
 }

@@ -37,7 +37,7 @@ public class Interpreter {
 			// decode
 			reader.reset(bytecode, pc);
 			int opcode=reader.readInt8();
-			System.out.printf("pc="+pc+" this code=%x \n",opcode);
+			System.err.printf("pc="+pc+" this code=%x \n",opcode);
 			Instruction inst=Factory.newInstruction(opcode);
 			inst.fetchOperands(reader);
 			frame.nextPC=reader.pc;
