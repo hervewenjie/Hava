@@ -1,40 +1,36 @@
-import classfile.CodeAttribute;
-import classfile.MemberInfo;
-import instructions.BytecodeReader;
+
+import config.DEBUG;
+import heap._Method;
 import instructions.Factory;
 import instructions.Instruction;
+import instructions.base.BytecodeReader;
 import rtdata.Frame;
 import rtdata._Thread;
 
 public class Interpreter {
 	
-	public void interpret(MemberInfo memberInfo){
-		CodeAttribute codeAttr=memberInfo.getCodeAttribute();
-		int maxLocals=codeAttr.maxLocals;
-		int maxStack=codeAttr.maxStack;
-		byte[] bytecode=codeAttr.code;
-		
+	public void interpret(_Method mainMethod){
 		_Thread thread=new _Thread();
-		Frame frame=thread.newFrame(maxLocals, maxStack);
+		Frame frame=thread.newFrame(mainMethod);
 		frame.setThread(thread);
-		
 		thread.pushFrame(frame);
 		
-		System.out.println("Byte Code:");
-		for(int i=0;i<bytecode.length;i++){
-			System.out.printf("%x ",bytecode[i]);
+		if(DEBUG.CLASSINFO_DEBUG){
+			System.out.println("Byte Code:");
+			for(int i=0;i<mainMethod.code.length;i++){
+				System.out.printf("%x ",mainMethod.code[i]);
+			}
+			System.out.println("\n==============");
 		}
-		System.out.println("\n==============");
 		
-		loop(thread, bytecode);
+		loop(thread, mainMethod.code);
 	}
 	
 	public void loop(_Thread thread,byte[] bytecode){
-		Frame frame=thread.popFrame();
-		
 		BytecodeReader reader=new BytecodeReader();
 		
 		while(true){
+			Frame frame=thread.currentFrame();
 			int pc=frame.nextPC;
 			thread.setPC(pc);
 			
@@ -48,7 +44,9 @@ public class Interpreter {
 			
 			// execute
 			inst.execute(frame);
-			
+			if(thread.isStackEmpty()){
+				break;
+			}
 			frame.printLocalVars();
 		}
 	}

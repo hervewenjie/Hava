@@ -40,7 +40,11 @@ public class ConstantMemberrefInfo extends ConstantInfo {
 		return cp.getClassName(classIndex);
 	}
 	
-	public String nameAndDescriptor() {
-		return cp.getNameAndType(nameAndTypeIndex);
+	public String nameAndDescriptorName() {
+		return cp.getNameAndTypeName(nameAndTypeIndex);
+	}
+	
+	public String nameAndDescriptorDescriptor() {
+		return cp.getNameAndTypeDescriptor(nameAndTypeIndex);
 	}
 }

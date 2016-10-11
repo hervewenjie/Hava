@@ -47,4 +47,6 @@ public class Stack {
 		}
 		return _top;
 	}
+	
+	public boolean isEmpty(){return _top==null;}
 }

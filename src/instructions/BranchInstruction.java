@@ -1,5 +1,6 @@
 package instructions;
 
+import instructions.base.BytecodeReader;
 import rtdata.Frame;
 
 public class BranchInstruction implements Instruction {
@@ -17,6 +18,7 @@ public class BranchInstruction implements Instruction {
 	}
 	
 	public static void branch(Frame frame,int offset){
+		
 		int pc=frame.thread.pc;
 		int nextPC=pc+offset;
 		frame.nextPC=nextPC;

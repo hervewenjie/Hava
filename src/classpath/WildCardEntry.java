@@ -30,8 +30,8 @@ public class WildCardEntry extends Entry {
 	}
 	
 	public static void main(String[] args){
-		WildCardEntry wildCardEntry=new WildCardEntry("C:\\Program Files\\Java\\jdk1.8.0_77\\jre\\lib\\*");
-		byte[] b=wildCardEntry.readClass("java/lang/Object.class");
+		WildCardEntry wildCardEntry=new WildCardEntry("/Users/Herve/Desktop/rt/java/io/*");
+		byte[] b=wildCardEntry.readClass("PrintStream.class");
 		System.out.println(b.length);
 	}
 

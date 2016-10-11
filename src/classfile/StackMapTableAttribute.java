@@ -42,7 +42,6 @@ class StackMapFrame {
 	
 	public static StackMapFrame newStackMapFrame(InputStream in){
 		int frame_type=ClassReader.read8(in);
-		System.out.println("frame_type="+frame_type);
 		if(frame_type>=248&&frame_type<=250){
 			// chop frame
 			return new ChopFrame(in, frame_type);
@@ -50,9 +49,12 @@ class StackMapFrame {
 			return new AppendFrame(in, frame_type);
 		} else if(frame_type>=0&&frame_type<=63){
 			// same frame
+			return new same_frame();
 		} else if(frame_type>=64&&frame_type<=127){
-			// same frame
+			// same_locals_1_stack_item_frame
 			return new same_locals_1_stack_item_frame(in,frame_type);
+		} else if (frame_type==255) {
+			return new full_frame(in, frame_type);
 		}
 		
 		return null;
@@ -119,4 +121,29 @@ class same_locals_1_stack_item_frame extends StackMapFrame {
 		stack=new VerificationTypeInfo[1];
 		stack[0]=new VerificationTypeInfo(in);
 	}
+}
+
+class full_frame extends StackMapFrame {
+	int frame_type;
+	int offset_delta;
+	int number_of_locals;
+	VerificationTypeInfo[] locals;
+	int number_of_stack_items;
+	VerificationTypeInfo[] stack;
+	
+	public full_frame(InputStream in,int frame_type) {
+		// TODO Auto-generated constructor stub
+		offset_delta=ClassReader.read16(in);
+		number_of_locals=ClassReader.read16(in);
+		locals=new VerificationTypeInfo[number_of_locals];
+		for(int i=0;i<number_of_locals;i++){locals[i]=new VerificationTypeInfo(in);}
+		
+		number_of_stack_items=ClassReader.read16(in);
+		stack=new VerificationTypeInfo[number_of_stack_items];
+		for(int i=0;i<number_of_stack_items;i++){stack[i]=new VerificationTypeInfo(in);}
+	}
+}
+
+class same_frame extends StackMapFrame {
+	int frame_type;
 }

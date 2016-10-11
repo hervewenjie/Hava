@@ -26,12 +26,11 @@ public class AttributeInfo {
 		int attrLen=ClassReader.read32(in);
 		AttributeInfo attrInfo=newAttributeInfo(attrName,attrLen,cp);
 		attrInfo.readInfo(in);
-		System.out.println("read info done");
 		return attrInfo;
 	}
 	
 	static AttributeInfo newAttributeInfo(String attrName,int attrLen,ConstantPool cp){
-		System.out.println("attrName="+attrName);
+		//System.out.println("attrName="+attrName);
 		switch (attrName) {
 		case "Code":
 			return new CodeAttribute(cp);
@@ -53,6 +52,8 @@ public class AttributeInfo {
 			return new StackMapTableAttribute();
 		case "Signature":
 			return new SignatureAttribute(cp);
+		case "RuntimeVisibleAnnotations":
+			return new RuntimeVisibleAnnotationsAttribute();
 		default:
 			break;
 		}

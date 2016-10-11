@@ -6,7 +6,8 @@ public class CP_MemberRef extends CP_SymRef {
 	
 	public void copyMemberRefInfo(classfile.ConstantMemberrefInfo refIno){
 		className=refIno.className();
-		name=descriptor=refIno.nameAndDescriptor();
+		name=refIno.nameAndDescriptorName();
+		descriptor=refIno.nameAndDescriptorDescriptor();
 	}
 	
 	public String getName(){return name;}

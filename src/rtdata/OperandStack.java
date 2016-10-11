@@ -82,4 +82,8 @@ public class OperandStack {
 		size--;
 		return slots[size];
 	}
+	
+	public _Object getRefFromTop(int n){
+		return slots[size-1-n].ref;
+	}
 }

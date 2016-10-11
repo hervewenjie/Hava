@@ -1,5 +1,7 @@
 package rtdata;
 
+import heap._Method;
+
 public class _Thread {
 	public int pc;
 	public Stack stack;
@@ -29,7 +31,13 @@ public class _Thread {
 		return stack.top();
 	}
 	
-	public Frame newFrame(int maxLocals,int maxStack){
-		return Frame.newFrame(maxLocals, maxStack);
+	public Frame topFrame(){
+		return stack.top();
 	}
+	
+	public Frame newFrame(_Method method){
+		return Frame.newFrame(this,method);
+	}
+	
+	public boolean isStackEmpty(){return stack.isEmpty();}
 }

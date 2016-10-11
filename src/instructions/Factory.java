@@ -6,6 +6,14 @@ import instructions.constrol.GOTO;
 import instructions.conversions.*;
 import instructions.loads.*;
 import instructions.math.*;
+import instructions.references.GETSTATIC;
+import instructions.references.GET_FIELD;
+import instructions.references.INVOKE_SPECIAL;
+import instructions.references.INVOKE_STATIC;
+import instructions.references.INVOKE_VIRTUAL;
+import instructions.references.NEW;
+import instructions.references.PUTSTATIC;
+import instructions.references.PUT_FIELD;
 import instructions.stack.*;
 import instructions.stores.*;
 
@@ -346,7 +354,23 @@ public class Factory {
 			return new IF_ACMPNE();
 		case 0xa7:
 			return new GOTO();
-
+		case 0xbb:
+			return new NEW();
+		case 0xb3:
+			return new PUTSTATIC();
+		case 0xb2:
+			return new GETSTATIC();
+		case 0xb5:
+			return new PUT_FIELD();
+		case 0xb4:
+			return new GET_FIELD();
+		case 0xb7:
+			return new INVOKE_SPECIAL();
+		case 0xb8:
+			return new INVOKE_STATIC();
+		case 0xb6:
+			return new INVOKE_VIRTUAL();
+			
 		default:
 			System.err.println("OPCODE ERR");
 			System.exit(1);

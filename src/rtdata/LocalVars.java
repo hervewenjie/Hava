@@ -60,4 +60,8 @@ public class LocalVars {
 	public _Object getRef(int index){
 		return vars[index].ref;
 	}
+	
+	public void setSlot(int index,Slot slot){
+		vars[index]=slot;
+	}
 }

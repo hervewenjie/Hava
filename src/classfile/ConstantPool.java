@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import config.DEBUG;
+
 public class ConstantPool {
 	public ConstantInfo[] infos;
 	public static ConstantPool readConstantPool(InputStream in){
@@ -14,7 +16,8 @@ public class ConstantPool {
 		for(int i=1;i<cpcount;i++){
 			constantPool.infos[i]=ConstantInfo.newConstantInfo(in, constantPool);
 			constantPool.infos[i].readInfo(in, constantPool);
-			System.out.println("#"+i+" = "+constantPool.infos[i].description());
+			if(DEBUG.CLASSINFO_DEBUG){System.out.println("#"+i+" = "+constantPool.infos[i].description());}
+			
 			// Double, Long take two slots
 			if(constantPool.infos[i] instanceof ConstantLongInfo ||
 					constantPool.infos[i] instanceof ConstantDoubleInfo){
@@ -36,6 +39,16 @@ public class ConstantPool {
 	public String getNameAndType(int index){
 		ConstantNameAndTypeInfo nameAndTypeInfo=(ConstantNameAndTypeInfo)infos[index];
 		return getUtf8(nameAndTypeInfo.nameIndex);
+	}
+	
+	public String getNameAndTypeName(int index){
+		ConstantNameAndTypeInfo nameAndTypeInfo=(ConstantNameAndTypeInfo)infos[index];
+		return getUtf8(nameAndTypeInfo.nameIndex);
+	}
+	
+	public String getNameAndTypeDescriptor(int index){
+		ConstantNameAndTypeInfo nameAndTypeInfo=(ConstantNameAndTypeInfo)infos[index];
+		return getUtf8(nameAndTypeInfo.descriptorIndex);
 	}
 	
 	public int getInteger(int index){

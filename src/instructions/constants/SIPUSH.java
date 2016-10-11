@@ -1,7 +1,7 @@
 package instructions.constants;
 
-import instructions.BytecodeReader;
 import instructions.Instruction;
+import instructions.base.BytecodeReader;
 import rtdata.Frame;
 
 public class SIPUSH implements Instruction {

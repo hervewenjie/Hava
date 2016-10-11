@@ -2,6 +2,8 @@ package classfile;
 
 import java.io.InputStream;
 
+import config.DEBUG;
+
 /*
 Code_attribute {
     u2 attribute_name_index;
@@ -41,6 +43,11 @@ public class CodeAttribute extends AttributeInfo {
 		maxLocals=ClassReader.read16(in);
 		int codeLen=ClassReader.read32(in);
 		code=ClassReader.readBytes(in, codeLen);
+		
+		if(DEBUG.CLASSINFO_DEBUG){
+			for(int i=0;i<code.length;i++){System.out.printf("%x ",code[i]);}
+			System.out.println();
+		}
 		exceptionTable=ExceptionTableEntry.readExceptionTable(in);
 		attributes=AttributeInfo.readAttributes(in, cp);
 	}

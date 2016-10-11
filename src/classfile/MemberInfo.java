@@ -2,6 +2,8 @@ package classfile;
 
 import java.io.InputStream;
 
+import config.DEBUG;
+
 /*
 field_info {
     u2             access_flags;
@@ -30,7 +32,7 @@ public class MemberInfo {
 		MemberInfo[] members=new MemberInfo[n];
 		for(int i=0;i<n;i++){
 			members[i]=readMember(in, cp);
-			System.out.println(members[i].memberToString());
+			if(DEBUG.CLASSINFO_DEBUG) {members[i].memberToString();}
 		}
 		return members;
 	}
@@ -41,8 +43,10 @@ public class MemberInfo {
 		memberInfo.accessFlags=ClassReader.read16(in);
 		memberInfo.nameIndex=ClassReader.read16(in);
 		memberInfo.descriptorIndex=ClassReader.read16(in);
-		System.out.println("Method name index="+memberInfo.nameIndex);
-		System.out.println("Method descriptorIndex index="+memberInfo.descriptorIndex);
+		if(DEBUG.CLASSINFO_DEBUG) {
+			System.out.println("Method name index="+memberInfo.nameIndex);
+			System.out.println("Method descriptorIndex index="+memberInfo.descriptorIndex);
+		}
 		memberInfo.attributes=AttributeInfo.readAttributes(in, cp);
 		return memberInfo;
 	}
@@ -55,7 +59,7 @@ public class MemberInfo {
 		return cp.getUtf8(descriptorIndex);
 	}
 	
-	String memberToString(){
+	void memberToString(){
 		String str="";
 		str+=AccessFlags.flagsToString(accessFlags);
 		str+=cp.getUtf8(nameIndex);
@@ -63,7 +67,7 @@ public class MemberInfo {
 			str+="\n  "+attr.description();
 		}
 		str+="\n";
-		return str;
+		System.out.println(str);
 	}
 	
 	public CodeAttribute getCodeAttribute(){

@@ -4,9 +4,10 @@ import classfile.CodeAttribute;
 import classfile.MemberInfo;
 
 public class _Method extends ClassMember {
-	int maxStack;
-	int maxLocals;
-	byte[] code;
+	public int maxStack;
+	public int maxLocals;
+	public byte[] code;
+	int argSlotCount;
 	
 	public static _Method[] newMethods(_Class _class,MemberInfo[] infos){
 		_Method[] methods=new _Method[infos.length];
@@ -15,6 +16,7 @@ public class _Method extends ClassMember {
 			methods[i]._class=_class;
 			methods[i].copyMemberInfo(infos[i]);
 			methods[i].copyAttributes(infos[i]);
+			methods[i].calArgSlotCount();
 		}
 		return methods;
 	}
@@ -27,4 +29,18 @@ public class _Method extends ClassMember {
 			code=codeAttribute.code;
 		}
 	}
+	
+	public void calArgSlotCount(){
+		MethodDescriptor parsedDescriptor=MethodDescriptorParser.parseMethodDescriptor(descriptor);
+		for(String s:parsedDescriptor.parameterTypes){
+			
+			argSlotCount++;
+			if(s.equals("J")||s.equals("D")){argSlotCount++;}
+		}
+		if(!isStatic()){
+			argSlotCount++;
+		}
+	}
+	
+	public int getArgSlotCount(){return argSlotCount;}
 }

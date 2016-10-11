@@ -1,5 +1,7 @@
 package classfile;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.InputStream;
 
 public class ClassReader {
@@ -17,6 +19,7 @@ public class ClassReader {
             int b1=in.read();
             int b2=in.read();
             b = (b1<<8) + b2;
+
         } catch (Exception e) {}
         return b;
     }
@@ -77,7 +80,7 @@ public class ClassReader {
     		for(int i=0;i<n;i++){
         		bytes[i]=(byte)in.read();
         	}
-		} catch (Exception e) {}
+		} catch (Exception e) {e.printStackTrace();}
     	return bytes;
     }
 

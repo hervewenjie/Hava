@@ -1,13 +1,10 @@
 package classpath;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 public class ZipEntry_ extends Entry {
 
@@ -28,7 +25,12 @@ public class ZipEntry_ extends Entry {
 		        if (entry.getName().equals(classname)) {
 					InputStream in=zipFile.getInputStream(entry);
 					byte[] b=new byte[(int)entry.getSize()];
-					in.read(b);
+					// 这个方法貌似有问题, 文件大了之后后半部分读到都是0
+					//in.read(b);
+					for(int i=0;i<b.length;i++){
+						byte onebyte=(byte)in.read();
+						b[i]=onebyte;
+					}
 					return b;
 				}
 		    }
@@ -42,18 +44,25 @@ public class ZipEntry_ extends Entry {
 	
 	public static void main(String[] args){
 		try {
-			String path="C:\\Program Files\\Java\\jdk1.8.0_77\\jre\\lib\\rt.jar";
+			String path="/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/rt.jar";
 			ZipFile zipFile=new ZipFile(path);
 			Enumeration<? extends ZipEntry> entries = zipFile.entries();
 			while(entries.hasMoreElements()){
 		        ZipEntry entry = entries.nextElement();
-		        System.out.println(entry.getName());
-		        if (entry.getName().equals("java/lang/Object.class")) {
+		        //System.out.println(entry.getName());
+		        if (entry.getName().equals("java/io/PrintStream.class")) {
 					System.out.println("Found");
 					InputStream in=zipFile.getInputStream(entry);
 					byte[] b=new byte[(int)entry.getSize()];
-					in.read(b);
-					//for(int i=0;i<b.length;i++){System.out.println(b[i]);}
+					//in.read(b);
+					for(int i=0;i<b.length;i++){
+						byte onebyte=(byte)in.read();
+						b[i]=onebyte;
+					}
+					for(int i=0;i<b.length;i++){
+						System.out.printf("%x ",b[i]);
+					}
+					System.out.println();
 				}
 		    }
 			zipFile.close();

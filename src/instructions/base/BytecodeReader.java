@@ -1,4 +1,4 @@
-package instructions;
+package instructions.base;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

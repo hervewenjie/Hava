@@ -1,7 +1,7 @@
 package instructions.constants;
 
-import instructions.BytecodeReader;
 import instructions.NoOperandsInstruction;
+import instructions.base.BytecodeReader;
 import rtdata.Frame;
 
 public class NOP extends NoOperandsInstruction{

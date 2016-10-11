@@ -1,5 +1,6 @@
 package instructions;
 
+import instructions.base.BytecodeReader;
 import rtdata.Frame;
 
 public interface Instruction {

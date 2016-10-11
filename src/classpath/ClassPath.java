@@ -62,15 +62,20 @@ public class ClassPath {
 	}
 	// boot->ext->user
 	public byte[] readClass(String className){
+		System.err.println("classpath readclass="+className);
 		className=className+".class";
+		
 		byte[] b=bootClasspath.readClass(className);
+		
 		if(b!=null&&b.length>0){
 			return b;
 		}
+		
 		b=extClasspath.readClass(className);
 		if(b!=null&&b.length>0){
 			return b;
 		}
+		
 		b=userClasspath.readClass(className);
 		if(b!=null&&b.length>0){
 			return b;

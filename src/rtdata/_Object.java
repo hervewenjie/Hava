@@ -9,5 +9,10 @@ public class _Object {
 	public _Object(_Class _Class) {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public Slot[] getFields(){return fields;}
+	
+	public String getClassName(){return _class.getName();}
+	
+	public _Class get_Class(){return _class;}
 }

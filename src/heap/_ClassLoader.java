@@ -9,6 +9,7 @@ import java.util.jar.Attributes.Name;
 import classfile.ClassFile;
 import classfile.ConstantPool;
 import classpath.ClassPath;
+import config.DEBUG;
 import rtdata.Slot;
 
 /*
@@ -46,6 +47,7 @@ public class _ClassLoader {
 	
 	public byte[] readClass(String name){
 		byte[] bs=cp.readClass(name);
+		
 		if(bs==null){
 			System.err.println("Class Not Found "+name);
 			System.exit(1);
@@ -54,7 +56,10 @@ public class _ClassLoader {
 	}
 	
 	public _Class defineClass(byte[] data){
+		
+		// parse class return ClassFile object
 		_Class _class=parseClass(data);
+		
 		_class.loader=this;
 		resolveSuperClass(_class);
 		resolveInterfaces(_class);
@@ -103,6 +108,12 @@ public class _ClassLoader {
 		calcInstanceFieldSlotIds(_class);
 		calcStaticFieldSlotIds(_class);
 		allocAndInitStaticVars(_class);
+		if(DEBUG.CLASSINFO_DEBUG){
+			System.out.println("---------");
+			System.out.println("class name="+_class.name);
+			System.out.println("instance fileds="+_class.instanceSlotCount);
+			System.out.println("static fields="+_class.staticSlotCount);
+		}
 	}
 	
 	private void calcInstanceFieldSlotIds(_Class _class){
@@ -184,12 +195,12 @@ public class _ClassLoader {
 		String cpOption="/Users/Herve/eclipse/java-neon2/Eclipse.app/Contents/MacOS/Hava/src/test";
 		ClassPath cp=ClassPath.parse(jreOption, cpOption);
 		_ClassLoader loader=new _ClassLoader(cp);
-		loader.loadClass("ClassFileTest");
-		System.out.println("=================");
-		loader.loadClass("ToLoad_1");
-		System.out.println("=================");
-		loader.loadClass("ToLoad_2");
-		
+//		loader.loadClass("ClassFileTest");
+//		System.out.println("=================");
+//		loader.loadClass("ToLoad_1");
+//		System.out.println("=================");
+//		loader.loadClass("ToLoad_2");
+		loader.loadClass("PrintStream");
 		loader.printLoadedClasses();
 	}
 }

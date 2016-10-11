@@ -130,6 +130,8 @@ public class ClassFile {
 	public static void main(String[] args){
 		String path=System.getProperty("user.dir")+File.separator
 				+"src"+File.separator+"test"+File.separator+"ClassFileTest.class";
+		
+		path="/Users/Herve/Desktop/rt/java/io/PrintStream.class";
 		try {
 			FileInputStream in=new FileInputStream(new File(path));
 			
@@ -142,8 +144,8 @@ public class ClassFile {
 			in.close();
 			
 			// Test _Class in package heap
-			System.out.println("===================");
-			_Class _c=new _Class(cf);
+//			System.out.println("===================");
+//			_Class _c=new _Class(cf);
 			
 		} catch (Exception e) {e.printStackTrace();}
 		

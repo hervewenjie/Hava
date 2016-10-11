@@ -13,21 +13,23 @@ public class _Class {
 	ConstantPool constantPool;
 	_Field[] fields;
 	_Method[] methods;
-	_ClassLoader loader;
 	_Class superClass;
 	_Class[] interfaces;
 	int instanceSlotCount;
 	int staticSlotCount;
 	Slot[] staticVars;
+	boolean initStarted;
+	
+	static _ClassLoader loader;
 	
 	public _Class(ClassFile cf) {
 		// TODO Auto-generated constructor stub
+		System.out.println("init class "+cf.getClassName());
 		accessFlags=cf.access_flags;
 		name=cf.getClassName();
 		superClassName=cf.getSuperClassName();
 		interfaceNames=cf.getInterfaceNames();
 		constantPool=ConstantPool.newConstantPool(this, cf.constantPool);
-		
 		fields=_Field.newFields(this, cf.fields);
 		methods=_Method.newMethods(this, cf.methods);
 	}
@@ -70,8 +72,24 @@ public class _Class {
 		return null;
 	}
 	
+	public void setClassLoader(_ClassLoader loader){
+		this.loader=loader;
+	}
+	
 	public _Object newObject(){
 		return new _Object(this);
 	}
+	
+	public String getName(){return name;}
+	
+	public void startInit(){initStarted=true;}
+	
+	public boolean initStarted(){return initStarted;}
+	
+	public _Method getClinitMethod(){
+		return getStaticMethod("<clinit>", "()V");
+	}
+	
+	public _Class getSuperClass(){return superClass;}
 
 }

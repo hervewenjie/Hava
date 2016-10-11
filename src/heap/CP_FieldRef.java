@@ -18,8 +18,11 @@ public class CP_FieldRef extends CP_MemberRef {
 	
 	public void resolveFieldRef(){
 		_Class d=cp._class;
-		_Class c=ResolvedClass();
-		_Field field=lookupField(c, className, descriptor);
+		_Class c=resolvedClass();
+		System.out.println("class="+c.getName());
+		System.out.println("name="+name);
+		System.out.println("descriptor="+descriptor);
+		_Field field=lookupField(c, name, descriptor);
 		
 		if(field==null){
 			System.err.println("java.lang.NoSuchFieldError");
@@ -33,6 +36,7 @@ public class CP_FieldRef extends CP_MemberRef {
 	}
 	
 	public _Field lookupField(_Class c,String name,String descriptor){
+		
 		for(_Field field:c.fields){
 			if(field.name.equals(name)&&field.descriptor.equals(descriptor)){
 				return field;
