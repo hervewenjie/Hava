@@ -3,6 +3,7 @@ package instructions;
 import instructions.comparisons.*;
 import instructions.constants.*;
 import instructions.constrol.GOTO;
+import instructions.constrol.RETURN;
 import instructions.conversions.*;
 import instructions.loads.*;
 import instructions.math.*;
@@ -370,6 +371,8 @@ public class Factory {
 			return new INVOKE_STATIC();
 		case 0xb6:
 			return new INVOKE_VIRTUAL();
+		case 0xb1:
+			return new RETURN();
 			
 		default:
 			System.err.println("OPCODE ERR");

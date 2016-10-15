@@ -21,6 +21,7 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
 		_Method resolvedMethod=methodRef.resolvedMethod();
 		if(resolvedMethod.isStatic()){
 			System.err.println("java.lang.IncompatibleClassChangeError");
+			System.exit(1);
 		}
 		
 		_Object ref=frame.operandStack.getRefFromTop(resolvedMethod.getArgSlotCount()-1);
@@ -33,10 +34,16 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
 			}
 		}
 		// TODO check
-		_Method methodToBeInvoked=Method_Lookup.LookupMethodInClass(ref.get_Class(),
-				methodRef.getName(), methodRef.getDescriptor());
+		_Method methodToBeInvoked=ref.get_Class().lookupMethod(methodRef.getName(), methodRef.getDescriptor());
+		
+		System.out.println("methodToBeInvoked="+methodToBeInvoked);
+		for(int i=0;i<methodToBeInvoked.code.length;i++){
+			System.out.printf("%x ",methodToBeInvoked.code[i]);
+		}System.out.println();
+		
 		if(methodToBeInvoked==null){
 			System.err.println("java.lang.AbstractMethodError");
+			System.exit(1);
 		}
 		MethodInvokeLogic.invokeMethod(frame, methodToBeInvoked);
 	}

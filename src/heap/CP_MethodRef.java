@@ -29,9 +29,7 @@ public class CP_MethodRef extends CP_MemberRef {
 	}
 	
 	public _Method lookupMethod(_Class _class,String name,String descriptor){
-		
-		_Method method=Method_Lookup.LookupMethodInClass(_class, name, descriptor);
-		
+		_Method method=Method_Lookup.LookupMethodInClass(_class, name, descriptor);		
 		if(method==null){method=Method_Lookup.LookupMethodInInterface(_class, name, descriptor);}
 		return method;
 	}

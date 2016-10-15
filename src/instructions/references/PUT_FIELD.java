@@ -19,6 +19,9 @@ public class PUT_FIELD extends Index16Instruction {
 		ConstantPool cp=currentClass.getConstantPool();
 		CP_FieldRef fieldRef=(CP_FieldRef)cp.getConstant(index);
 		_Field field = fieldRef.resolvedField();
+		System.out.println("curmethod="+currentMethod.getName());
+		System.out.println("curclass="+currentClass.getName());
+		System.out.println("field="+field.getName());
 		
 		// TODO check static and final
 		
@@ -31,7 +34,7 @@ public class PUT_FIELD extends Index16Instruction {
 				descriptor.equals("I")){
 			int val=stack.popInt();
 			_Object ref=stack.popRef();
-			ref.getFields()[slotId].setNum(val);
+			ref.getFields()[slotId].setNum(val);	
 		}
 		if(descriptor.equals("F")){
 			float val=stack.popFloat();

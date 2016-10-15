@@ -62,6 +62,7 @@ public class OperandStack {
 	}
 	
 	public void pushRef(_Object ref){
+		if(slots[size]==null){slots[size]=new Slot();}
 		slots[size].ref=ref;
 		size++;
 	}
@@ -80,10 +81,23 @@ public class OperandStack {
 	
 	public Slot popSlot(){
 		size--;
-		return slots[size];
+		Slot slot=slots[size];
+		slots[size]=null;
+		return slot;
+	}
+	
+	public Slot topSlot(){
+		return slots[--size];
 	}
 	
 	public _Object getRefFromTop(int n){
 		return slots[size-1-n].ref;
+	}
+	
+	public void printLocalStack(){
+		System.out.println("====================");
+		for(int i=0;i<size;i++){
+			System.out.println("slot["+i+"]="+slots[i]);
+		}
 	}
 }

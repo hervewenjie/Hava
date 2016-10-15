@@ -14,7 +14,8 @@ import rtdata._Object;
 public class GET_FIELD extends Index16Instruction {
 	@Override
 	public void execute(Frame frame) {
-
+		System.out.println("------------");
+		System.out.println("GET_FIELD");
 		// TODO Auto-generated method stub
 		ConstantPool cp=frame.method.get_Class().getConstantPool();
 		CP_FieldRef fieldRef=(CP_FieldRef)cp.getConstant(index);
@@ -44,6 +45,5 @@ public class GET_FIELD extends Index16Instruction {
 		if(descriptor.equals("L")||descriptor.equals("[")){
 			stack.pushRef(slots[slotId].getRef());
 		}
-	
 	}
 }

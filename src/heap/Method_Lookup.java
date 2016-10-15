@@ -5,7 +5,9 @@ public class Method_Lookup {
 		
 		for(_Class c=_class;c!=null;c=c.superClass){
 			for(_Method m:c.methods){
-				if(m.getName().equals(name)&&m.getDescriptor().equals(descriptor)){return m;}
+				if(m.getName().equals(name)&&m.getDescriptor().equals(descriptor)){
+					return m;
+				}
 			}
 		}
 		return null;

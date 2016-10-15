@@ -7,6 +7,7 @@ import rtdata._Thread;
 
 public class MethodInvokeLogic {
 	public static void invokeMethod(Frame invokerFrame, _Method method){
+		
 		_Thread thread=invokerFrame.thread;
 		Frame newFrame=thread.newFrame(method);
 		thread.pushFrame(newFrame);
@@ -20,5 +21,15 @@ public class MethodInvokeLogic {
 		}
 		
 		// TODO native methods
+		if(method.isNative()){
+			// hack 
+			if(method.getName().equals("registerNatives")){
+				thread.popFrame();
+			} else {
+				System.err.println("Native Method "+method.getName());
+				System.exit(1);
+			}
+		}
+		
 	}
 }

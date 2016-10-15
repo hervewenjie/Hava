@@ -13,13 +13,15 @@ import rtdata._Object;
 public class INVOKE_SPECIAL extends Index16Instruction {
 	@Override
 	public void execute(Frame frame) {
-
 		// TODO Auto-generated method stub
 		_Class currentClass=frame.method.get_Class();
 		ConstantPool cp=currentClass.getConstantPool();
 		CP_MethodRef methodRef=(CP_MethodRef)cp.getConstant(index);
 		_Class resolvedClass=methodRef.resolvedClass();
 		_Method resolvedMethod=methodRef.resolvedMethod();
+		System.out.println("invokespecial class="+currentClass.getName());
+		System.out.println("resolvedclass="+resolvedClass.getName());
+		System.out.println("method="+resolvedMethod.getName());
 		
 		if(resolvedMethod.getName().equals("<init>")&&
 				resolvedMethod.get_Class()!=resolvedClass){

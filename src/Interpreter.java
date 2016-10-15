@@ -31,13 +31,21 @@ public class Interpreter {
 		
 		while(true){
 			Frame frame=thread.currentFrame();
+			frame.setThread(thread);
+			
+			//frame.printLocalVars();
+			
 			int pc=frame.nextPC;
 			thread.setPC(pc);
 			
 			// decode
-			reader.reset(bytecode, pc);
+			reader.reset(frame.method.code, pc);
 			int opcode=reader.readInt8();
-			System.err.printf("pc="+pc+" this code=%x \n",opcode);
+			System.err.printf("class="+frame.method.get_Class().getName()+
+					" method="+frame.method.getName()+" pc="+pc+" this code=%x \n",opcode);
+//			for(int i=0;i<frame.method.code.length;i++){System.out.printf("%x ",frame.method.code[i]);
+//			}System.out.println();
+			
 			Instruction inst=Factory.newInstruction(opcode);
 			inst.fetchOperands(reader);
 			frame.nextPC=reader.pc;
@@ -45,9 +53,10 @@ public class Interpreter {
 			// execute
 			inst.execute(frame);
 			if(thread.isStackEmpty()){
+				System.out.println("thread framestack empty");
 				break;
 			}
-			frame.printLocalVars();
+		
 		}
 	}
 }

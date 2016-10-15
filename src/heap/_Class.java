@@ -92,5 +92,15 @@ public class _Class {
 	}
 	
 	public _Class getSuperClass(){return superClass;}
+	
+	public _Method[] getMethods(){return methods;}
+	
+	public _Method lookupMethod(String name,String descriptor){
+		_Method method=Method_Lookup.LookupMethodInClass(this, name, descriptor);		
+		if(method==null){method=Method_Lookup.LookupMethodInInterface(this, name, descriptor);}
+		return method;
+	}
+	
+	public int getInstanceSlotCount(){return instanceSlotCount;}
 
 }

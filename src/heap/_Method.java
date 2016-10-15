@@ -21,6 +21,12 @@ public class _Method extends ClassMember {
 		return methods;
 	}
 	
+	public static _Method copyMethod(_Method ori){
+		_Method m=new _Method();
+		
+		return m;
+	}
+	
 	public void copyAttributes(MemberInfo info){
 		CodeAttribute codeAttribute=info.getCodeAttribute();
 		if(codeAttribute!=null){
@@ -43,4 +49,8 @@ public class _Method extends ClassMember {
 	}
 	
 	public int getArgSlotCount(){return argSlotCount;}
+	
+	public boolean isNative(){
+		return 0 != (accessFlags&AccessFlags.ACC_NATIVE);
+	}
 }

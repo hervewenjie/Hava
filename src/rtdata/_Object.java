@@ -6,8 +6,11 @@ public class _Object {
 	_Class _class;
 	Slot[] fields;
 
-	public _Object(_Class _Class) {
+	public _Object(_Class _class) {
 		// TODO Auto-generated constructor stub
+		this._class=_class;
+		fields=new Slot[_class.getInstanceSlotCount()];
+		for(int i=0;i<fields.length;i++){fields[i]=new Slot();}
 	}
 	
 	public Slot[] getFields(){return fields;}
