@@ -10,6 +10,7 @@ import instructions.base.MethodInvokeLogic;
 import rtdata.Frame;
 import rtdata.OperandStack;
 import rtdata._Object;
+import rtdata._String;
 
 public class INVOKE_VIRTUAL extends Index16Instruction {
 	@Override
@@ -28,18 +29,13 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
 		if(ref==null){
 			// hack
 			if(methodRef.getName().equals("println")){
-				System.out.println("\nHack println!!!\n");
+				System.out.println("\nHack println!!!");
 				_println(frame.operandStack, methodRef.getDescriptor());
 				return;
 			}
 		}
 		// TODO check
 		_Method methodToBeInvoked=ref.get_Class().lookupMethod(methodRef.getName(), methodRef.getDescriptor());
-		
-		System.out.println("methodToBeInvoked="+methodToBeInvoked);
-		for(int i=0;i<methodToBeInvoked.code.length;i++){
-			System.out.printf("%x ",methodToBeInvoked.code[i]);
-		}System.out.println();
 		
 		if(methodToBeInvoked==null){
 			System.err.println("java.lang.AbstractMethodError");
@@ -62,6 +58,9 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
 		}
 		if(descriptor.equals("(D)V")){
 			System.out.println(stack.popDouble());
+		}
+		if(descriptor.equals("(Ljava/lang/String;)V")){
+			System.out.println( ((_String)stack.popRef()).s );
 		}
 		System.out.println("++++++++++++++++++++++++++");
 		stack.popRef();

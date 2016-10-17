@@ -4,6 +4,7 @@ import heap.ConstantPool;
 import instructions.Index8Instruction;
 import rtdata.Frame;
 import rtdata.OperandStack;
+import rtdata._String;
 
 public class LDC extends Index8Instruction {
 	
@@ -22,6 +23,9 @@ public class LDC extends Index8Instruction {
 		}
 		if(c instanceof Float){
 			stack.pushFloat((float)c);
+		}
+		if(c instanceof String){
+			stack.pushRef(new _String( (String)c ));
 		}
 	}
 }

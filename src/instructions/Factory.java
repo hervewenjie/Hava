@@ -373,6 +373,8 @@ public class Factory {
 			return new INVOKE_VIRTUAL();
 		case 0xb1:
 			return new RETURN();
+		case 0x12:
+			return new LDC();
 			
 		default:
 			System.err.println("OPCODE ERR");

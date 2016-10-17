@@ -5,6 +5,10 @@ import heap._Class;
 public class _Object {
 	_Class _class;
 	Slot[] fields;
+	
+	public _Object() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public _Object(_Class _class) {
 		// TODO Auto-generated constructor stub
